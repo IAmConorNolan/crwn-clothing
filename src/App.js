@@ -9,6 +9,7 @@ import ShopPage from './pages/shop/shop.component';
 import Header from './components/header/header.component';
 import SignInUp from './pages/sign-in-up/sign-in-up.component';
 import { setCurrentUser } from './redux/user/user.actions';
+import { selectCurrentUser } from './redux/user/user.selector';
 
 class App extends React.Component {
   unsubscribeFromAuth = null;
@@ -51,8 +52,8 @@ class App extends React.Component {
   }
 }
 
-const mapStateToProps = ({ user }) => ({
-  currentUser: user.currentUser
+const mapStateToProps = (state) => ({
+  currentUser: selectCurrentUser(state),
 });
 
 const mapDispatchToProps = dispatch => ({
