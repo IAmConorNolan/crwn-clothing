@@ -1,7 +1,9 @@
 import CartActionTypes from './cart.types.js'
+import { addItemToCart } from './cart.utils'
 
 const INITIAL_STATE = {
     hidden: true,
+    cartItems: [],
 };
 
 const cartReducer = (state = INITIAL_STATE, action) => {
@@ -11,6 +13,11 @@ const cartReducer = (state = INITIAL_STATE, action) => {
                 ...state,
                 hidden: !state.hidden
             };
+            case CartActionTypes.ADD_ITEM:
+                    return {
+                        ...state,
+                        cartItems: addItemToCart(state.cartItems, action.payload) //spread in existing array values, and then anything in payload (new values)
+                    };
         default:
             return state;
     }
