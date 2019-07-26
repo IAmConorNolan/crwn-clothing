@@ -3,11 +3,12 @@ import CustomButton from '../custom-button/custom-button.component';
 import {connect} from 'react-redux';
 import {addItem} from '../../redux/cart/cart.actions';
 import './collection-item.styles.scss';
+import {CollectionItemContainer} from './component-item.styles'
 
 const CollectionItem = ({ item, addItem }) => {
     const {name, price, imageUrl} = item;
     return(
-        <div className='collection-item'>
+    <CollectionItemContainer>
         <div
         className='image'
         style={{
@@ -18,8 +19,8 @@ const CollectionItem = ({ item, addItem }) => {
             <div className='name'>{name}</div>
             <div className='price'>{price}</div>
         </div>
-        <CustomButton onClick={() => addItem(item)} inverted>Add to Cart</CustomButton>
-    </div>
+        <CustomButton className='custom-button' onClick={() => addItem(item)} inverted>Add to Cart</CustomButton>
+    </CollectionItemContainer>
     );
 };
 
