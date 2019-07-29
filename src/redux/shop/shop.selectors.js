@@ -21,3 +21,8 @@ export const selectIsCollectionFetching = createSelector(
     [selectShop],
     shop => shop.isFetching,
 )
+
+export const selectIsCollectionsLoaded = createSelector(
+    [selectShop],
+    shop => !!shop.collections // This changes it to a truthy/falsy value. In JS, an empty object is true. Therefore - if shop.collections is an object, true, else false!
+)

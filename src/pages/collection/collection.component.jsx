@@ -3,17 +3,15 @@ import './collection.styles.scss';
 import { connect } from 'react-redux'
 import {selectCollection} from '../../redux/shop/shop.selectors';
 import CollectionItem from '../../components/collection-item/collection-item.component';
-import WithSpinner from '../../components/with-spinner/with-spinner.component'
-
 
 const CollectionPage = ({collection}) => {
-    //const {title, items} = collection;
+    const {title, items} = collection;
     return(
     <div className='collection-page'>
-        <h2 className='title'>{collection.title}</h2>
+        <h2 className='title'>{title}</h2>
         <div className='items'>
         {
-            collection.items.map(item =>
+            items.map(item =>
                 <CollectionItem key={item.id} item={item} className='.collection-item' />
                 )
         }
