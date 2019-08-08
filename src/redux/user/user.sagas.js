@@ -5,7 +5,9 @@ import {auth, googleProvider, createUserProfileDocument, getCurrentUser} from '.
 
 import { 
     signInSuccess, 
-    signInFailure, 
+    signInFailure,
+    signOutSuccess,
+    signOutFailure 
 } from './user.actions';
 
 function* getSnapshotFromUserAuth(userAuth) {
@@ -46,6 +48,17 @@ export function* signInWithEmail({ payload: { email, password } }) {
 
 }
 
+export function* signOut() {
+    try {
+        yield auth.signOut();
+        yield put(signOutSuccess())
+    } catch (error) {
+        yield put(
+            signOutFailure(error)
+        )
+    }
+}
+
 export function* isUserAuthenticated() {
 try {
     const userAuth = yield getCurrentUser();
@@ -68,10 +81,15 @@ export function* onEmailSignInStart() {
     yield takeLatest(UserActionTypes.EMAIL_SIGN_IN_START, signInWithEmail);
 }
 
+export function* onSignout() {
+    yield takeLatest(UserActionTypes.SIGN_OUT_START, signOut);
+}
+
 export function* userSagas() {
     yield all([
         call(onGoogleSignInStart),
         call(onEmailSignInStart),
-        call(onCheckUserSession)
+        call(onCheckUserSession),
+        call(onSignout)
     ]);
 }
